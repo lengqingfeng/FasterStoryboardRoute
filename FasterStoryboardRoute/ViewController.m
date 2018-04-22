@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-
+#import "FasterStoryboardRouteManager.h"
 @interface ViewController ()
 
 @end
@@ -16,7 +16,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+  
     // Do any additional setup after loading the view, typically from a nib.
+}
+- (IBAction)openViewController:(id)sender {
+     //OpenViewControllerWithStoryboard(@"HomeViewController", self, @{@"name":@"LiLei"});
+    OpenViewControllerWithClass(@"MeViewController", self, @{@"name":@"LiLei"});
 }
 
 
