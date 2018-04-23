@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "FasterStoryboardRouteManager.h"
+#import "FasterRoute.h"
 @interface ViewController ()
 
 @end
@@ -20,8 +20,12 @@
     // Do any additional setup after loading the view, typically from a nib.
 }
 - (IBAction)openViewController:(id)sender {
-     //OpenViewControllerWithStoryboard(@"HomeViewController", self, @{@"name":@"LiLei"});
-    OpenViewControllerWithClass(@"MeViewController", self, @{@"name":@"LiLei"});
+//    [FasterRoute openContorllerWithIdentifier:@"HomeViewController"
+//                                       source:self
+//                                       params:@{@"name":@"LiLei"}];
+    
+    //[FasterRoute openUrlString:@"faster://home/detail?name=LiLei"];
+    [FasterRoute openUrlString:@"faster:/me/setinfo?name=LiLei"];
 }
 
 

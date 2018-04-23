@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-@interface FasterStoryboardRouteManager : NSObject
+@interface FasterRoute : NSObject
+@property(nonatomic,weak) UINavigationController *currentNavigationController;
 
-+ (FasterStoryboardRouteManager  *)sharedInstance;
++ (FasterRoute *)sharedInstance;
+
 
 - (UIViewController *)openViewControllerWithIdentifier:(NSString *)identifier;
 
@@ -18,17 +20,24 @@
  故事版路由跳转
 
  @param identifier identifier 统一跟类名保持一致
- @param source 当前对象
  @param params 传递参数
  */
-void OpenViewControllerWithStoryboard(NSString *identifier, id source, NSDictionary *params);
++ (void)openContorllerWithIdentifier:(NSString *)identifier
+                              params:(NSDictionary *)params;
 
 /**
  代码路由跳转
 
  @param className 类名
- @param source 当前对象
  @param params 传递参数
  */
-void OpenViewControllerWithClass(NSString *className, id source, NSDictionary *params);
++ (void)openViewControllerWithClassName:(NSString *)className
+                                  params:(NSDictionary *)params;
+
+/**
+ 通过URL方式跳转
+
+ @param urlString 跳转url
+ */
++ (BOOL)openUrlString:(NSString *)urlString;
 @end
