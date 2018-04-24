@@ -16,7 +16,7 @@
 		48395267204C203C003A3819 /* FasterStoryboardRouteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 48395266204C203C003A3819 /* FasterStoryboardRouteTests.m */; };
 		48395272204C203C003A3819 /* FasterStoryboardRouteUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 48395271204C203C003A3819 /* FasterStoryboardRouteUITests.m */; };
 		48395281204C20A7003A3819 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48395280204C20A7003A3819 /* HomeViewController.m */; };
-		48395283204C218C003A3819 /* FasterStroyboardURL.plist in Resources */ = {isa = PBXBuildFile; fileRef = 48395282204C218C003A3819 /* FasterStroyboardURL.plist */; };
+		48395283204C218C003A3819 /* FasterRouteURL.plist in Resources */ = {isa = PBXBuildFile; fileRef = 48395282204C218C003A3819 /* FasterRouteURL.plist */; };
 		48395287204C244C003A3819 /* FasterRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 48395286204C244C003A3819 /* FasterRoute.m */; };
 		4839528D204C3E64003A3819 /* NSObject+ClassProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 4839528C204C3E64003A3819 /* NSObject+ClassProperty.m */; };
 		48395290204D90AB003A3819 /* MeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4839528F204D90AB003A3819 /* MeViewController.m */; };
@@ -59,7 +59,7 @@
 		48395273204C203C003A3819 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4839527F204C20A7003A3819 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		48395280204C20A7003A3819 /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
-		48395282204C218C003A3819 /* FasterStroyboardURL.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = FasterStroyboardURL.plist; sourceTree = "<group>"; };
+		48395282204C218C003A3819 /* FasterRouteURL.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = FasterRouteURL.plist; sourceTree = "<group>"; };
 		48395285204C244C003A3819 /* FasterRoute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FasterRoute.h; sourceTree = "<group>"; };
 		48395286204C244C003A3819 /* FasterRoute.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FasterRoute.m; sourceTree = "<group>"; };
 		4839528B204C3E64003A3819 /* NSObject+ClassProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+ClassProperty.h"; sourceTree = "<group>"; };
@@ -118,7 +118,7 @@
 		4839524C204C203C003A3819 /* FasterStoryboardRoute */ = {
 			isa = PBXGroup;
 			children = (
-				48395284204C2195003A3819 /* FasterStoryboardRouteGroup */,
+				48395284204C2195003A3819 /* FasterRoute */,
 				4839524D204C203C003A3819 /* AppDelegate.h */,
 				4839524E204C203C003A3819 /* AppDelegate.m */,
 				48395250204C203C003A3819 /* ViewController.h */,
@@ -154,18 +154,18 @@
 			path = FasterStoryboardRouteUITests;
 			sourceTree = "<group>";
 		};
-		48395284204C2195003A3819 /* FasterStoryboardRouteGroup */ = {
+		48395284204C2195003A3819 /* FasterRoute */ = {
 			isa = PBXGroup;
 			children = (
+				48395282204C218C003A3819 /* FasterRouteURL.plist */,
 				48F28DE7208C6B0C001428F2 /* NSDictionary+RouteCategory.h */,
 				48F28DE8208C6B0C001428F2 /* NSDictionary+RouteCategory.m */,
-				48395282204C218C003A3819 /* FasterStroyboardURL.plist */,
 				48395285204C244C003A3819 /* FasterRoute.h */,
 				48395286204C244C003A3819 /* FasterRoute.m */,
 				4839528B204C3E64003A3819 /* NSObject+ClassProperty.h */,
 				4839528C204C3E64003A3819 /* NSObject+ClassProperty.m */,
 			);
-			path = FasterStoryboardRouteGroup;
+			path = FasterRoute;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,7 +274,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48395283204C218C003A3819 /* FasterStroyboardURL.plist in Resources */,
+				48395283204C218C003A3819 /* FasterRouteURL.plist in Resources */,
 				4839525A204C203C003A3819 /* LaunchScreen.storyboard in Resources */,
 				48395257204C203C003A3819 /* Assets.xcassets in Resources */,
 				48395255204C203C003A3819 /* Main.storyboard in Resources */,

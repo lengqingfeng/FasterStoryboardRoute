@@ -10,12 +10,18 @@
 #import "NSDictionary+RouteCategory.h"
 #import "NSObject+ClassProperty.h"
 #import <objc/runtime.h>
+
 static NSString * const kClassName = @"className";
 static NSString * const kStroyboardName = @"stroyboardName";
 static NSString * const kScheme = @"faster";
 static NSString * const kisStoryboard = @"isStoryboard";
+static NSString * const kPlistName = @"FasterRouteURL";
+static NSString * const kPlistStoryboard = @"Storyboard";
+static NSString * const kPlistURL = @"URL";
+
 typedef id (^CallBackBlack)(id result);
 @interface FasterRoute ()
+
 @property (nonatomic, strong) NSMutableDictionary *blockDictionary;
 
 @end
@@ -186,9 +192,8 @@ typedef id (^CallBackBlack)(id result);
                     [[FasterRoute sharedInstance].blockDictionary setObject:completion forKey:root];
                 }
             }
-            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"FasterStroyboardURL" ofType:@"plist"];
-            NSMutableDictionary *dataDictionary = [[NSMutableDictionary alloc] initWithContentsOfFile:filePath];
-            NSDictionary *urlDictionary = [dataDictionary dictionaryValueForKey:@"URL"];
+            
+            NSDictionary *urlDictionary = [[FasterRoute sharedInstance] getPlistDataWithKey:kPlistURL];
             NSDictionary *data = [urlDictionary dictionaryValueForKey:root];
             BOOL isStoryboard = [urlDictionary dictionaryValueForKey:kisStoryboard];
             NSString *className = [data stringValueForKey:kClassName];
@@ -248,9 +253,8 @@ typedef id (^CallBackBlack)(id result);
     __block  BOOL isStop = NO;
     __block NSString *restorationID = @"";
     __block NSString *stroyboardName = @"";
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"FasterStroyboardURL" ofType:@"plist"];
-    NSMutableDictionary *dataDictionary = [[NSMutableDictionary alloc] initWithContentsOfFile:filePath];
-    NSDictionary *stroyboardDictionary = [dataDictionary dictionaryValueForKey:@"Storyboard"];
+
+    NSDictionary *stroyboardDictionary = [self getPlistDataWithKey:kPlistStoryboard];
     NSArray *stroyboardNameArray = [stroyboardDictionary allKeys];
     if (stroyboardNameArray.count == 0) {
         return @{};
@@ -283,6 +287,13 @@ typedef id (^CallBackBlack)(id result);
         _blockDictionary = [[NSMutableDictionary alloc] init];
     }
     return _blockDictionary;
+}
+
+- (NSDictionary *)getPlistDataWithKey:(NSString *)key {
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:kPlistName ofType:@"plist"];
+    NSMutableDictionary *dataDictionary = [[NSMutableDictionary alloc] initWithContentsOfFile:filePath];
+    NSDictionary *stroyboardDictionary = [dataDictionary dictionaryValueForKey:key];
+    return stroyboardDictionary;
 }
 
 @end
