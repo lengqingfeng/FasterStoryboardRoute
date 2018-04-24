@@ -7,7 +7,7 @@
 //
 
 #import "HomeViewController.h"
-
+#import "FasterRoute.h"
 @interface HomeViewController ()
 
 @end
@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor greenColor];
+    [FasterRoute callBackWithURLString:@"faster://home/detail" params:@{@"name":@"helloworld"}];
     NSLog(@"name========%@",self.name);
     // Do any additional setup after loading the view.
 }

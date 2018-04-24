@@ -20,12 +20,17 @@
     // Do any additional setup after loading the view, typically from a nib.
 }
 - (IBAction)openViewController:(id)sender {
-//    [FasterRoute openContorllerWithIdentifier:@"HomeViewController"
-//                                       source:self
-//                                       params:@{@"name":@"LiLei"}];
+    [FasterRoute openContorllerWithIdentifier:@"HomeViewController"
+                                       params:@{@"name":@"LiLei"}];
+    
     
     //[FasterRoute openUrlString:@"faster://home/detail?name=LiLei"];
-    [FasterRoute openUrlString:@"faster:/me/setinfo?name=LiLei"];
+    
+//    [FasterRoute openURLString:@"faster:/me/setinfo?name=LiLei"];
+    
+//    [FasterRoute openURLString:@"faster://home/detail?name=LiLei" completion:^(id result) {
+//        NSLog(@"result == %@",result);
+//    }];
 }
 
 

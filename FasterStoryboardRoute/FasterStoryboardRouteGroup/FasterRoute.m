@@ -14,7 +14,10 @@ static NSString * const kClassName = @"className";
 static NSString * const kStroyboardName = @"stroyboardName";
 static NSString * const kScheme = @"faster";
 static NSString * const kisStoryboard = @"isStoryboard";
+typedef id (^CallBackBlack)(id result);
 @interface FasterRoute ()
+@property (nonatomic, strong) NSMutableDictionary *blockDictionary;
+
 @end
 
 @implementation FasterRoute
@@ -69,19 +72,36 @@ static NSString * const kisStoryboard = @"isStoryboard";
     [self pushControllerWithObj:controller params:params];
 }
 
-+ (BOOL)openUrlString:(NSString *)urlString {
+#pragma mark URL 跳转
++ (BOOL)openURLString:(NSString *)urlString {
+    return [self openURLString:urlString completion:nil];
+}
+
+#pragma mark URL 跳转 带有返回参数
++ (BOOL)openURLString:(NSString *)urlString completion:(void (^)(id result))completion {
     //去空格
     NSString *stringTrim = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
-
+    
     if (!stringTrim.length) {
-         return NO;
+        return NO;
     }
     
     NSURL *URL = [NSURL URLWithString:stringTrim];
-    return [self handleRouteWithURL:URL];;
+    return [self handleRouteWithURL:URL completion:completion];;
 }
 
-+ (BOOL)handleRouteWithURL:(NSURL *)URL {
++ (BOOL)callBackWithURLString:(NSString *)urlString params:(id)params {
+    if ([[[FasterRoute sharedInstance].blockDictionary allKeys] containsObject:urlString]) {
+         CallBackBlack data = [[FasterRoute sharedInstance].blockDictionary objectForKey:urlString];
+        if (data) {
+            data(params);
+            return NO;
+        }
+    }
+    return NO;
+}
+
++ (BOOL)handleRouteWithURL:(NSURL *)URL completion:(void (^)(id result))completion {
     NSString *pattern = [URL absoluteString];
     NSURLComponents *components = [NSURLComponents componentsWithString:pattern];
     NSString *scheme = components.scheme;
@@ -148,10 +168,24 @@ static NSString * const kisStoryboard = @"isStoryboard";
     
     NSDictionary *params = queryParams.copy;
     
+    return [self analysisRegisterURLWithPattern:pattern
+                                         params:params
+                                     completion:completion];
+    
+}
+
++ (BOOL)analysisRegisterURLWithPattern:(NSString *)pattern
+                                params:(NSDictionary *)params
+                            completion:(void (^)(id result))completion{
     NSArray *rootURLArray = [pattern componentsSeparatedByString:@"?"];
     if (rootURLArray.count > 0) {
         NSString *root = [rootURLArray firstObject];
         if (root.length > kScheme.length && [[root substringToIndex:kScheme.length] isEqualToString:kScheme]) {
+            if (completion) {
+                if (![[[FasterRoute sharedInstance].blockDictionary allKeys] containsObject:root]) {
+                    [[FasterRoute sharedInstance].blockDictionary setObject:completion forKey:root];
+                }
+            }
             NSString *filePath = [[NSBundle mainBundle] pathForResource:@"FasterStroyboardURL" ofType:@"plist"];
             NSMutableDictionary *dataDictionary = [[NSMutableDictionary alloc] initWithContentsOfFile:filePath];
             NSDictionary *urlDictionary = [dataDictionary dictionaryValueForKey:@"URL"];
@@ -166,7 +200,7 @@ static NSString * const kisStoryboard = @"isStoryboard";
             
             if (!isStoryboard) {
                 controller = [[NSClassFromString(className) alloc] init];
-
+                
             } else {
                 controller = [[FasterRoute sharedInstance] getControllerWithURLData:data];
             }
@@ -177,13 +211,13 @@ static NSString * const kisStoryboard = @"isStoryboard";
             }
             
             [self pushControllerWithObj:controller params:params];
-            
+            return YES;
         }
-    } else {
-        return  NO;
+        
+        return NO;
     }
-
-    return YES;
+    
+    return  NO;
 }
 
 + (void)pushControllerWithObj:(id)obj
@@ -244,6 +278,13 @@ static NSString * const kisStoryboard = @"isStoryboard";
     return nil;
 }
 
+- (NSMutableDictionary *)blockDictionary {
+    if (!_blockDictionary) {
+        _blockDictionary = [[NSMutableDictionary alloc] init];
+    }
+    return _blockDictionary;
+}
+
 @end
 
 #pragma mark - UINavigationController+FasterRoute
@@ -282,6 +323,7 @@ void swizzleMethod(Class class, SEL originalSelector, SEL swizzledSelector) {
         method_exchangeImplementations(originalMethod, swizzledMethod);
     }
 }
+
 
 @end
 
