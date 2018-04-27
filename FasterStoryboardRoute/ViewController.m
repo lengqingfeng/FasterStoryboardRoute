@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "FasterRoute.h"
+#import "FastRoute.h"
 @interface ViewController ()
 
 @end
@@ -20,7 +20,9 @@
     // Do any additional setup after loading the view, typically from a nib.
 }
 - (IBAction)openViewController:(id)sender {
-    [FasterRoute openContorllerWithIdentifier:@"HomeViewController"
+  
+    
+    [FastRoute openContorllerWithIdentifier:@"HomeViewController"
                                        params:@{@"name":@"LiLei"}];
     
     

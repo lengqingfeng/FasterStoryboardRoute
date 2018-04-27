@@ -9,14 +9,17 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface FasterRoute : NSObject
+@interface FastRoute : NSObject
 
 @property(nonatomic,weak) UINavigationController *currentNavigationController;
 
-+ (FasterRoute *)sharedInstance;
++ (FastRoute *)sharedInstance;
 
+/**
+ 路由配置文件名称
+ */
+@property (strong, nonatomic) NSString *routerPlistName;
 
-- (UIViewController *)openViewControllerWithIdentifier:(NSString *)identifier;
 
 /**
  通过URL方式跳转 故事版 代码 都支持

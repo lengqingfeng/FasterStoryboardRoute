@@ -6,7 +6,7 @@
 //  Copyright © 2018年 Lengshengren. All rights reserved.
 //
 
-#import "FasterRoute.h"
+#import "FastRoute.h"
 #import "NSDictionary+RouteCategory.h"
 #import "NSObject+ClassProperty.h"
 #import <objc/runtime.h>
@@ -15,29 +15,37 @@ static NSString * const kClassName = @"className";
 static NSString * const kStroyboardName = @"stroyboardName";
 static NSString * const kScheme = @"faster";
 static NSString * const kisStoryboard = @"isStoryboard";
-static NSString * const kPlistName = @"FasterRouteURL";
 static NSString * const kPlistStoryboard = @"Storyboard";
 static NSString * const kPlistURL = @"URL";
 
 typedef id (^CallBackBlack)(id result);
-@interface FasterRoute ()
+@interface FastRoute ()
 
 @property (nonatomic, strong) NSMutableDictionary *blockDictionary;
 
 @end
 
-@implementation FasterRoute
-+ (FasterRoute  *)sharedInstance {
-    static FasterRoute *routeSharedInstance = nil;
+@implementation FastRoute
++ (FastRoute  *)sharedInstance {
+    static FastRoute *routeSharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        routeSharedInstance = [[FasterRoute alloc] init];
+        routeSharedInstance = [[FastRoute alloc] init];
     });
     return routeSharedInstance;
 }
 
+- (void)setRouterPlistName:(NSString *)routerPlistName {
+    if (_routerPlistName != routerPlistName) {
+        _routerPlistName = routerPlistName;
+    }
+}
 - (id)viewControllerWithIdentifier:(NSString *)identifier
                     storyboardName:(NSString *)storyboardName {
+    if (storyboardName == nil || storyboardName.length == 0 ) {
+        NSLog(@"storyboardName is nil");
+        return nil;
+    }
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
     if(storyboard) {
         return [storyboard instantiateViewControllerWithIdentifier:identifier];
@@ -58,18 +66,18 @@ typedef id (^CallBackBlack)(id result);
 #pragma mark 类名跳转
 + (void)openViewControllerWithClassName:(NSString *)className
                                  params:(NSDictionary *)params {
-    id  controller = [[NSClassFromString(className) alloc] init];
-    if (controller == nil) {
+    id  vc = [[NSClassFromString(className) alloc] init];
+    if (vc == nil) {
         NSLog(@"出问题了!!!");
         return;
     }
-    [self pushControllerWithObj:controller params:params];
+    [self pushControllerWithObj:vc params:params];
 }
 
 #pragma mark Storyboard identifier 跳转
 + (void)openContorllerWithIdentifier:(NSString *)identifier
                               params:(NSDictionary *)params {
-    UIViewController *controller = [[FasterRoute sharedInstance] getControllerWithIdentifier:identifier];
+    UIViewController *controller = [[FastRoute sharedInstance] getControllerWithIdentifier:identifier];
     if (controller == nil) {
         NSLog(@"stroyboard 控制器不存在，出问题了!!!");
         return;
@@ -97,8 +105,8 @@ typedef id (^CallBackBlack)(id result);
 }
 
 + (BOOL)callBackWithURLString:(NSString *)urlString params:(id)params {
-    if ([[[FasterRoute sharedInstance].blockDictionary allKeys] containsObject:urlString]) {
-         CallBackBlack data = [[FasterRoute sharedInstance].blockDictionary objectForKey:urlString];
+    if ([[[FastRoute sharedInstance].blockDictionary allKeys] containsObject:urlString]) {
+         CallBackBlack data = [[FastRoute sharedInstance].blockDictionary objectForKey:urlString];
         if (data) {
             data(params);
             return NO;
@@ -188,14 +196,14 @@ typedef id (^CallBackBlack)(id result);
         NSString *root = [rootURLArray firstObject];
         if (root.length > kScheme.length && [[root substringToIndex:kScheme.length] isEqualToString:kScheme]) {
             if (completion) {
-                if (![[[FasterRoute sharedInstance].blockDictionary allKeys] containsObject:root]) {
-                    [[FasterRoute sharedInstance].blockDictionary setObject:completion forKey:root];
+                if (![[[FastRoute sharedInstance].blockDictionary allKeys] containsObject:root]) {
+                    [[FastRoute sharedInstance].blockDictionary setObject:completion forKey:root];
                 }
             }
             
-            NSDictionary *urlDictionary = [[FasterRoute sharedInstance] getPlistDataWithKey:kPlistURL];
+            NSDictionary *urlDictionary = [[FastRoute sharedInstance] getPlistDataWithKey:kPlistURL];
             NSDictionary *data = [urlDictionary dictionaryValueForKey:root];
-            BOOL isStoryboard = [urlDictionary dictionaryValueForKey:kisStoryboard];
+            BOOL isStoryboard = [[urlDictionary stringValueForKey:kisStoryboard] boolValue];
             NSString *className = [data stringValueForKey:kClassName];
             UIViewController *controller = nil;
             if (className == nil) {
@@ -207,7 +215,7 @@ typedef id (^CallBackBlack)(id result);
                 controller = [[NSClassFromString(className) alloc] init];
                 
             } else {
-                controller = [[FasterRoute sharedInstance] getControllerWithURLData:data];
+                controller = [[FastRoute sharedInstance] getControllerWithURLData:data];
             }
             
             if (controller == nil) {
@@ -232,7 +240,7 @@ typedef id (^CallBackBlack)(id result);
             [obj setControllerPropertyParams:params];
         }
         
-        [[FasterRoute sharedInstance].currentNavigationController pushViewController:obj animated:YES];
+        [[FastRoute sharedInstance].currentNavigationController pushViewController:obj animated:YES];
     }
 }
 
@@ -290,7 +298,7 @@ typedef id (^CallBackBlack)(id result);
 }
 
 - (NSDictionary *)getPlistDataWithKey:(NSString *)key {
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:kPlistName ofType:@"plist"];
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:self.routerPlistName ofType:@"plist"];
     NSMutableDictionary *dataDictionary = [[NSMutableDictionary alloc] initWithContentsOfFile:filePath];
     NSDictionary *stroyboardDictionary = [dataDictionary dictionaryValueForKey:key];
     return stroyboardDictionary;
@@ -298,13 +306,13 @@ typedef id (^CallBackBlack)(id result);
 
 @end
 
-#pragma mark - UINavigationController+FasterRoute
+#pragma mark - UINavigationController+Faster
 
-@interface UINavigationController (FasterRoute)
+@interface UINavigationController (Faster)
 
 @end
 
-@implementation UINavigationController (FasterRoute)
+@implementation UINavigationController (Faster)
 
 + (void)load {
     static dispatch_once_t onceToken;
@@ -316,7 +324,7 @@ typedef id (^CallBackBlack)(id result);
 
 - (void)aop_NavigationViewWillAppear:(BOOL)animation {
     [self aop_NavigationViewWillAppear:animation];
-    [FasterRoute sharedInstance].currentNavigationController = self;
+    [FastRoute sharedInstance].currentNavigationController = self;
 }
 
 void swizzleMethod(Class class, SEL originalSelector, SEL swizzledSelector) {
