@@ -11,22 +11,26 @@
 #import "NSObject+ClassProperty.h"
 #import <objc/runtime.h>
 
-static NSString * const kClassName = @"className";
-static NSString * const kStroyboardName = @"stroyboardName";
-static NSString * const kScheme = @"faster";
-static NSString * const kisStoryboard = @"isStoryboard";
-static NSString * const kPlistStoryboard = @"Storyboard";
-static NSString * const kPlistURL = @"URL";
+static NSString *const kClassName = @"className";
+static NSString *const kStroyboardName = @"stroyboardName";
+static NSString *const kScheme = @"faster";
+static NSString *const kisStoryboard = @"isStoryboard";
+static NSString *const kPlistStoryboard = @"Storyboard";
+static NSString *const kPlistURL = @"URL";
 
 typedef id (^CallBackBlack)(id result);
+
+
 @interface FastRoute ()
 
 @property (nonatomic, strong) NSMutableDictionary *blockDictionary;
 
 @end
 
+
 @implementation FastRoute
-+ (FastRoute  *)sharedInstance {
+
++ (FastRoute *)sharedInstance {
     static FastRoute *routeSharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -40,24 +44,25 @@ typedef id (^CallBackBlack)(id result);
         _routerPlistName = routerPlistName;
     }
 }
+
 - (id)viewControllerWithIdentifier:(NSString *)identifier
                     storyboardName:(NSString *)storyboardName {
-    if (storyboardName == nil || storyboardName.length == 0 ) {
+    if (storyboardName == nil || storyboardName.length == 0) {
         NSLog(@"storyboardName is nil");
         return nil;
     }
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
-    if(storyboard) {
+    if (storyboard) {
         return [storyboard instantiateViewControllerWithIdentifier:identifier];
     }
     return nil;
 }
 
 - (UIViewController *)openViewControllerWithIdentifier:(NSString *)identifier {
-    if(!identifier) {
-       @throw [NSException exceptionWithName:@"FasterStoryboardRouteManager"
-                                      reason:@"identifier 不存在"
-                                    userInfo:nil];
+    if (!identifier) {
+        @throw [NSException exceptionWithName:@"FasterStoryboardRouteManager"
+                                       reason:@"identifier 不存在"
+                                     userInfo:nil];
         return nil;
     }
     return [self getControllerWithIdentifier:identifier];
@@ -66,7 +71,7 @@ typedef id (^CallBackBlack)(id result);
 #pragma mark 类名跳转
 + (void)openViewControllerWithClassName:(NSString *)className
                                  params:(NSDictionary *)params {
-    id  vc = [[NSClassFromString(className) alloc] init];
+    id vc = [[NSClassFromString(className) alloc] init];
     if (vc == nil) {
         NSLog(@"出问题了!!!");
         return;
@@ -82,7 +87,7 @@ typedef id (^CallBackBlack)(id result);
         NSLog(@"stroyboard 控制器不存在，出问题了!!!");
         return;
     }
-    
+
     [self pushControllerWithObj:controller params:params];
 }
 
@@ -95,18 +100,19 @@ typedef id (^CallBackBlack)(id result);
 + (BOOL)openURLString:(NSString *)urlString completion:(void (^)(id result))completion {
     //去空格
     NSString *stringTrim = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
-    
+
     if (!stringTrim.length) {
         return NO;
     }
-    
+
     NSURL *URL = [NSURL URLWithString:stringTrim];
-    return [self handleRouteWithURL:URL completion:completion];;
+    return [self handleRouteWithURL:URL completion:completion];
+    ;
 }
 
 + (BOOL)callBackWithURLString:(NSString *)urlString params:(id)params {
     if ([[[FastRoute sharedInstance].blockDictionary allKeys] containsObject:urlString]) {
-         CallBackBlack data = [[FastRoute sharedInstance].blockDictionary objectForKey:urlString];
+        CallBackBlack data = [[FastRoute sharedInstance].blockDictionary objectForKey:urlString];
         if (data) {
             data(params);
             return NO;
@@ -123,52 +129,52 @@ typedef id (^CallBackBlack)(id result);
         NSLog(@"scheme not find");
         return NO;
     }
-    
+
     if (components.host.length > 0 && (![components.host isEqualToString:@"localhost"] && [components.host rangeOfString:@"."].location == NSNotFound)) {
         NSString *host = [components.percentEncodedHost copy];
         components.host = @"/";
         components.percentEncodedPath = [host stringByAppendingPathComponent:(components.percentEncodedPath ?: @"")];
     }
-    
+
     NSString *path = [components percentEncodedPath];
-    
+
     if (components.fragment != nil) {
         BOOL fragmentContainsQueryParams = NO;
         NSURLComponents *fragmentComponents = [NSURLComponents componentsWithString:components.percentEncodedFragment];
-        
+
         if (fragmentComponents.query == nil && fragmentComponents.path != nil) {
             fragmentComponents.query = fragmentComponents.path;
         }
-        
+
         if (fragmentComponents.queryItems.count > 0) {
             fragmentContainsQueryParams = fragmentComponents.queryItems.firstObject.value.length > 0;
         }
-        
+
         if (fragmentContainsQueryParams) {
             components.queryItems = [(components.queryItems ?: @[]) arrayByAddingObjectsFromArray:fragmentComponents.queryItems];
         }
-        
+
         if (fragmentComponents.path != nil && (!fragmentContainsQueryParams || ![fragmentComponents.path isEqualToString:fragmentComponents.query])) {
             path = [path stringByAppendingString:[NSString stringWithFormat:@"#%@", fragmentComponents.percentEncodedPath]];
         }
     }
-    
+
     if (path.length > 0 && [path characterAtIndex:0] == '/') {
         path = [path substringFromIndex:1];
     }
-    
+
     if (path.length > 0 && [path characterAtIndex:path.length - 1] == '/') {
         path = [path substringToIndex:path.length - 1];
     }
-    
-    //获取queryItem
-    NSArray <NSURLQueryItem *> *queryItems = [components queryItems] ?: @[];
+
+    //获取queryItem 解析参数
+    NSArray<NSURLQueryItem *> *queryItems = [components queryItems] ?: @[];
     NSMutableDictionary *queryParams = [NSMutableDictionary dictionary];
     for (NSURLQueryItem *item in queryItems) {
         if (item.value == nil) {
             continue;
         }
-        
+
         if (queryParams[item.name] == nil) {
             queryParams[item.name] = item.value;
         } else if ([queryParams[item.name] isKindOfClass:[NSArray class]]) {
@@ -176,21 +182,20 @@ typedef id (^CallBackBlack)(id result);
             queryParams[item.name] = [values arrayByAddingObject:item.value];
         } else {
             id existingValue = queryParams[item.name];
-            queryParams[item.name] = @[existingValue, item.value];
+            queryParams[item.name] = @[ existingValue, item.value ];
         }
     }
-    
+
     NSDictionary *params = queryParams.copy;
-    
+
     return [self analysisRegisterURLWithPattern:pattern
                                          params:params
                                      completion:completion];
-    
 }
 
 + (BOOL)analysisRegisterURLWithPattern:(NSString *)pattern
                                 params:(NSDictionary *)params
-                            completion:(void (^)(id result))completion{
+                            completion:(void (^)(id result))completion {
     NSArray *rootURLArray = [pattern componentsSeparatedByString:@"?"];
     if (rootURLArray.count > 0) {
         NSString *root = [rootURLArray firstObject];
@@ -200,7 +205,7 @@ typedef id (^CallBackBlack)(id result);
                     [[FastRoute sharedInstance].blockDictionary setObject:completion forKey:root];
                 }
             }
-            
+
             NSDictionary *urlDictionary = [[FastRoute sharedInstance] getPlistDataWithKey:kPlistURL];
             NSDictionary *data = [urlDictionary dictionaryValueForKey:root];
             BOOL isStoryboard = [[urlDictionary stringValueForKey:kisStoryboard] boolValue];
@@ -210,27 +215,27 @@ typedef id (^CallBackBlack)(id result);
                 NSLog(@"出问题了!!!");
                 return NO;
             }
-            
+
             if (!isStoryboard) {
                 controller = [[NSClassFromString(className) alloc] init];
-                
+
             } else {
                 controller = [[FastRoute sharedInstance] getControllerWithURLData:data];
             }
-            
+
             if (controller == nil) {
                 NSLog(@"stroyboard 控制器不存在，出问题了!!!");
                 return NO;
             }
-            
+
             [self pushControllerWithObj:controller params:params];
             return YES;
         }
-        
+
         return NO;
     }
-    
-    return  NO;
+
+    return NO;
 }
 
 + (void)pushControllerWithObj:(id)obj
@@ -239,26 +244,26 @@ typedef id (^CallBackBlack)(id result);
         if (params != nil) {
             [obj setControllerPropertyParams:params];
         }
-        
+
         [[FastRoute sharedInstance].currentNavigationController pushViewController:obj animated:YES];
     }
 }
 
 - (UIViewController *)getControllerWithURLData:(NSDictionary *)data {
-    NSString *restorationID  = [data stringValueForKey:kClassName];
+    NSString *restorationID = [data stringValueForKey:kClassName];
     NSString *stroyboardName = [data stringValueForKey:kStroyboardName];
     return [self viewControllerWithIdentifier:restorationID storyboardName:stroyboardName];
 }
 
 - (UIViewController *)getControllerWithIdentifier:(NSString *)identifier {
     NSDictionary *valueDictionary = [self stroyboardNameArrayWithIdentifier:identifier];
-    NSString *restorationID  = [valueDictionary stringValueForKey:kClassName];
+    NSString *restorationID = [valueDictionary stringValueForKey:kClassName];
     NSString *stroyboardName = [valueDictionary stringValueForKey:kStroyboardName];
     return [self viewControllerWithIdentifier:restorationID storyboardName:stroyboardName];
 }
 
 - (NSDictionary *)stroyboardNameArrayWithIdentifier:(NSString *)identifier {
-    __block  BOOL isStop = NO;
+    __block BOOL isStop = NO;
     __block NSString *restorationID = @"";
     __block NSString *stroyboardName = @"";
 
@@ -267,26 +272,27 @@ typedef id (^CallBackBlack)(id result);
     if (stroyboardNameArray.count == 0) {
         return @{};
     }
-    
-    for (NSString * stroyboardNameKey in stroyboardNameArray) {
-         NSArray *data = [stroyboardDictionary arrayValueForKey:stroyboardNameKey];
-         [data enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                NSDictionary *dataDictionary = obj;
-                restorationID = [dataDictionary stringValueForKey:kClassName];
-                stroyboardName = [dataDictionary stringValueForKey:kStroyboardName];
-             if ([restorationID isEqualToString:identifier]) {
-                 isStop = YES;
-                 *stop = YES;
-             }
-          
-         }];
-        
+
+    for (NSString *stroyboardNameKey in stroyboardNameArray) {
+        NSArray *data = [stroyboardDictionary arrayValueForKey:stroyboardNameKey];
+        [data enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+            NSDictionary *dataDictionary = obj;
+            restorationID = [dataDictionary stringValueForKey:kClassName];
+            stroyboardName = [dataDictionary stringValueForKey:kStroyboardName];
+            if ([restorationID isEqualToString:identifier]) {
+                isStop = YES;
+                *stop = YES;
+            }
+
+        }];
+
         if (isStop) {
-            return @{kClassName:restorationID ? : @"",kStroyboardName:stroyboardName ? : @""};
+            return @{ kClassName : restorationID ?: @"",
+                      kStroyboardName : stroyboardName ?: @"" };
             break;
         }
     }
-    
+
     return nil;
 }
 
@@ -308,9 +314,11 @@ typedef id (^CallBackBlack)(id result);
 
 #pragma mark - UINavigationController+Faster
 
+
 @interface UINavigationController (Faster)
 
 @end
+
 
 @implementation UINavigationController (Faster)
 
@@ -330,19 +338,18 @@ typedef id (^CallBackBlack)(id result);
 void swizzleMethod(Class class, SEL originalSelector, SEL swizzledSelector) {
     Method originalMethod = class_getInstanceMethod(class, originalSelector);
     Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
-    
+
     BOOL didAddMethod = class_addMethod(class,
                                         originalSelector,
                                         method_getImplementation(swizzledMethod),
                                         method_getTypeEncoding(swizzledMethod));
-    
+
     if (didAddMethod) {
         class_replaceMethod(class, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
-    }else{
+    } else {
         method_exchangeImplementations(originalMethod, swizzledMethod);
     }
 }
 
 
 @end
-
