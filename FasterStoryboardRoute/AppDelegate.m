@@ -8,15 +8,19 @@
 
 #import "AppDelegate.h"
 #import "FastRoute.h"
+
+
 @interface AppDelegate ()
 
 @end
+
 
 @implementation AppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-      [FastRoute sharedInstance].routerPlistName = @"FasterRouteURL";
+    [FastRoute sharedInstance].routerPlistName = @"FasterRouteURL";
+    //[FastRoute sharedInstance].schemeName = @"gj";
     // Override point for customization after application launch.
     return YES;
 }

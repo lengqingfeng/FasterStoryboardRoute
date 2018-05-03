@@ -45,6 +45,12 @@ typedef id (^CallBackBlack)(id result);
     }
 }
 
+- (void)setSchemeName:(NSString *)schemeName {
+    if (_schemeName != schemeName) {
+        _schemeName = schemeName;
+    }
+}
+
 - (id)viewControllerWithIdentifier:(NSString *)identifier
                     storyboardName:(NSString *)storyboardName {
     if (storyboardName == nil || storyboardName.length == 0) {
@@ -73,7 +79,7 @@ typedef id (^CallBackBlack)(id result);
                                  params:(NSDictionary *)params {
     id vc = [[NSClassFromString(className) alloc] init];
     if (vc == nil) {
-        NSLog(@"出问题了!!!");
+        NSLog(@"类名不存在 请检查plist设置");
         return;
     }
     [self pushControllerWithObj:vc params:params];
@@ -125,9 +131,19 @@ typedef id (^CallBackBlack)(id result);
     NSString *pattern = [URL absoluteString];
     NSURLComponents *components = [NSURLComponents componentsWithString:pattern];
     NSString *scheme = components.scheme;
-    if (![scheme isEqualToString:kScheme]) {
-        NSLog(@"scheme not find");
+    if (scheme.length == 0) {
         return NO;
+    }
+    if ([FastRoute sharedInstance].schemeName.length > 0) {
+        if (![scheme isEqualToString:[FastRoute sharedInstance].schemeName]) {
+            NSLog(@"scheme not find");
+            return NO;
+        }
+    } else {
+        if (![scheme isEqualToString:kScheme]) {
+            NSLog(@"scheme not find");
+            return NO;
+        }
     }
 
     if (components.host.length > 0 && (![components.host isEqualToString:@"localhost"] && [components.host rangeOfString:@"."].location == NSNotFound)) {
@@ -199,7 +215,16 @@ typedef id (^CallBackBlack)(id result);
     NSArray *rootURLArray = [pattern componentsSeparatedByString:@"?"];
     if (rootURLArray.count > 0) {
         NSString *root = [rootURLArray firstObject];
-        if (root.length > kScheme.length && [[root substringToIndex:kScheme.length] isEqualToString:kScheme]) {
+        NSInteger schemeLength = 0;
+        NSString *schemeNameString = nil;
+        if ([FastRoute sharedInstance].schemeName.length > 0) {
+            schemeLength = [FastRoute sharedInstance].schemeName.length;
+            schemeNameString = [FastRoute sharedInstance].schemeName;
+        } else {
+            schemeLength = kScheme.length;
+            schemeNameString = kScheme;
+        }
+        if (root.length > schemeLength && [[root substringToIndex:schemeLength] isEqualToString:schemeNameString]) {
             if (completion) {
                 if (![[[FastRoute sharedInstance].blockDictionary allKeys] containsObject:root]) {
                     [[FastRoute sharedInstance].blockDictionary setObject:completion forKey:root];

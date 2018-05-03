@@ -9,9 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+
 @interface FastRoute : NSObject
 
-@property(nonatomic,weak) UINavigationController *currentNavigationController;
+@property (nonatomic, weak) UINavigationController *currentNavigationController;
 
 + (FastRoute *)sharedInstance;
 
@@ -20,6 +21,10 @@
  */
 @property (strong, nonatomic) NSString *routerPlistName;
 
+/**
+ faster://home/detail schemeName is faster 默认faster
+ */
+@property (strong, nonatomic) NSString *schemeName;
 
 /**
  通过URL方式跳转 故事版 代码 都支持
