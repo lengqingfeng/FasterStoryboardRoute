@@ -1,2 +1,2 @@
 # FasterStoryboardRoute
-** pod 'FastRoute', '0.0.1'
+'FastRoute', '0.0.2'
