@@ -27,7 +27,6 @@
     //    [FastRoute openContorllerWithIdentifier:@"HomeViewController"
     //                                       params:@{@"name":@"LiLei"}];
 
-
     [FastRoute openURLString:@"faster://home/detail?name=LiLei"];
 
     //    [FasterRoute openURLString:@"faster:/me/setinfo?name=LiLei"];

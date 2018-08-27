@@ -74,6 +74,22 @@ typedef id (^CallBackBlack)(id result);
     return [self getControllerWithIdentifier:identifier];
 }
 
+#pragma mark 返回指定控制器
++ (void)popToRouteViewControlerWithClassName:(NSString *)className {
+    BOOL exist = NO;
+    NSArray *controllers = [FastRoute sharedInstance].currentNavigationController.viewControllers;
+    for (UIViewController *controller in  controllers) {
+        if ([controller isKindOfClass:NSClassFromString(className)]) {
+            exist = YES;
+            [[FastRoute sharedInstance].currentNavigationController popToViewController:controller animated:YES];
+            break;
+        }
+    }
+    if (!exist) {
+        [[FastRoute sharedInstance].currentNavigationController popViewControllerAnimated:YES];
+    }
+}
+
 #pragma mark 类名跳转
 + (void)openViewControllerWithClassName:(NSString *)className
                                  params:(NSDictionary *)params {
@@ -113,7 +129,7 @@ typedef id (^CallBackBlack)(id result);
 
     NSURL *URL = [NSURL URLWithString:stringTrim];
     return [self handleRouteWithURL:URL completion:completion];
-    ;
+    
 }
 
 + (BOOL)callBackWithURLString:(NSString *)urlString params:(id)params {
@@ -334,6 +350,7 @@ typedef id (^CallBackBlack)(id result);
     NSDictionary *stroyboardDictionary = [dataDictionary dictionaryValueForKey:key];
     return stroyboardDictionary;
 }
+
 
 @end
 

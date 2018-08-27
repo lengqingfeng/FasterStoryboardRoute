@@ -69,4 +69,12 @@
 + (void)openViewControllerWithClassName:(NSString *)className
                                  params:(NSDictionary *)params;
 
+
+/**
+ 指定返回控制器
+
+ @param className 返回控制器类名
+ */
++ (void)popToRouteViewControlerWithClassName:(NSString *)className;
+
 @end
