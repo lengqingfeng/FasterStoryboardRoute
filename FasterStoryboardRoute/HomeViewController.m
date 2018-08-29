@@ -14,6 +14,10 @@
 
 @implementation HomeViewController
 
+- (IBAction)popAction:(id)sender {
+    [FastRoute popToRouteViewControlerWithClassName:@"ViewController"];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor greenColor];

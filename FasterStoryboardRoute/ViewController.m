@@ -24,16 +24,16 @@
 }
 - (IBAction)openViewController:(id)sender {
     //
-    //    [FastRoute openContorllerWithIdentifier:@"HomeViewController"
+    //[FastRoute openContorllerWithIdentifier:@"HomeViewController"
     //                                       params:@{@"name":@"LiLei"}];
 
-//    [FastRoute openURLString:@"faster://home/detail?name=LiLei"];
+    //[FastRoute openURLString:@"faster://home/detail?name=LiLei"];
     
     [FastRoute openURLString:@"faster://home/detail?age=11" params:@{@"name":@"LiLei"}];
 
-    //    [FasterRoute openURLString:@"faster:/me/setinfo?name=LiLei"];
+    //[FasterRoute openURLString:@"faster:/me/setinfo?name=LiLei"];
 
-    //    [FasterRoute openURLString:@"faster://home/detail?name=LiLei" completion:^(id result) {
+    //[FasterRoute openURLString:@"faster://home/detail?name=LiLei" completion:^(id result) {
     //        NSLog(@"result == %@",result);
     //    }];
 }
