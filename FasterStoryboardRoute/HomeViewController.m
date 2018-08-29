@@ -19,6 +19,7 @@
     self.view.backgroundColor = [UIColor greenColor];
     [FastRoute callBackWithURLString:@"faster://home/detail" params:@{@"name":@"helloworld"}];
     NSLog(@"name========%@",self.name);
+    NSLog(@"age========%@",self.age);
     // Do any additional setup after loading the view.
 }
 

@@ -10,4 +10,5 @@
 
 @interface HomeViewController : UIViewController
 @property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *age;
 @end

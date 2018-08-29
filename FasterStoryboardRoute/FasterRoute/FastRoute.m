@@ -118,17 +118,27 @@ typedef id (^CallBackBlack)(id result);
     return [self openURLString:urlString completion:nil];
 }
 
+
++ (BOOL)openURLString:(NSString *)urlString params:(id)params {
+    return [self openURLString:urlString params:params completion:nil];
+}
+
 #pragma mark URL 跳转 带有返回参数
 + (BOOL)openURLString:(NSString *)urlString completion:(void (^)(id result))completion {
+  return  [self openURLString:urlString params:nil completion:completion];
+
+}
+
++ (BOOL)openURLString:(NSString *)urlString params:(NSDictionary *)params completion:(void (^)(id result))completion {
     //去空格
     NSString *stringTrim = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
-
+    
     if (!stringTrim.length) {
         return NO;
     }
 
     NSURL *URL = [NSURL URLWithString:stringTrim];
-    return [self handleRouteWithURL:URL completion:completion];
+    return [self handleRouteWithURL:URL params:params completion:completion];
     
 }
 
@@ -143,7 +153,7 @@ typedef id (^CallBackBlack)(id result);
     return NO;
 }
 
-+ (BOOL)handleRouteWithURL:(NSURL *)URL completion:(void (^)(id result))completion {
++ (BOOL)handleRouteWithURL:(NSURL *)URL params:(NSDictionary *)params completion:(void (^)(id result))completion {
     NSString *pattern = [URL absoluteString];
     NSURLComponents *components = [NSURLComponents componentsWithString:pattern];
     NSString *scheme = components.scheme;
@@ -218,10 +228,14 @@ typedef id (^CallBackBlack)(id result);
         }
     }
 
-    NSDictionary *params = queryParams.copy;
-
+    NSMutableDictionary *URLParams = [[NSMutableDictionary alloc] init];
+    URLParams = queryParams;
+    if (params.count > 0) {
+        [URLParams addEntriesFromDictionary:params];
+    }
+    
     return [self analysisRegisterURLWithPattern:pattern
-                                         params:params
+                                         params:URLParams
                                      completion:completion];
 }
 
