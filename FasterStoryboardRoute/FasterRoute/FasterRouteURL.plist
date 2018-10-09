@@ -22,6 +22,15 @@
 			<key>stroyboardName</key>
 			<string></string>
 		</dict>
+		<key>faster:/me/detail</key>
+		<dict>
+			<key>className</key>
+			<string>GJDetailViewController</string>
+			<key>isStoryboard</key>
+			<true/>
+			<key>stroyboardName</key>
+			<string>Main</string>
+		</dict>
 	</dict>
 	<key>Storyboard</key>
 	<dict>

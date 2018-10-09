@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0DE1D71C216CB7AA00C0F87A /* GJDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE1D71B216CB7AA00C0F87A /* GJDetailViewController.m */; };
 		4839524F204C203C003A3819 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4839524E204C203C003A3819 /* AppDelegate.m */; };
 		48395252204C203C003A3819 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48395251204C203C003A3819 /* ViewController.m */; };
 		48395255204C203C003A3819 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48395253204C203C003A3819 /* Main.storyboard */; };
@@ -41,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0DE1D71A216CB7AA00C0F87A /* GJDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJDetailViewController.h; sourceTree = "<group>"; };
+		0DE1D71B216CB7AA00C0F87A /* GJDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJDetailViewController.m; sourceTree = "<group>"; };
 		4839524A204C203C003A3819 /* FasterStoryboardRoute.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FasterStoryboardRoute.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4839524D204C203C003A3819 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4839524E204C203C003A3819 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -132,6 +135,8 @@
 				4839525C204C203C003A3819 /* main.m */,
 				4839528E204D90AB003A3819 /* MeViewController.h */,
 				4839528F204D90AB003A3819 /* MeViewController.m */,
+				0DE1D71A216CB7AA00C0F87A /* GJDetailViewController.h */,
+				0DE1D71B216CB7AA00C0F87A /* GJDetailViewController.m */,
 			);
 			path = FasterStoryboardRoute;
 			sourceTree = "<group>";
@@ -230,7 +235,7 @@
 		48395242204C203B003A3819 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = Lengshengren;
 				TargetAttributes = {
 					48395249204C203C003A3819 = {
@@ -303,6 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				48395252204C203C003A3819 /* ViewController.m in Sources */,
+				0DE1D71C216CB7AA00C0F87A /* GJDetailViewController.m in Sources */,
 				4839525D204C203C003A3819 /* main.m in Sources */,
 				48F28DE9208C6B0C001428F2 /* NSDictionary+RouteCategory.m in Sources */,
 				48395287204C244C003A3819 /* FastRoute.m in Sources */,
@@ -378,6 +384,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -385,6 +392,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -433,6 +441,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -440,6 +449,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

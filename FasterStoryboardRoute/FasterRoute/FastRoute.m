@@ -147,6 +147,8 @@ typedef id (^CallBackBlack)(id result);
         CallBackBlack data = [[FastRoute sharedInstance].blockDictionary objectForKey:urlString];
         if (data) {
             data(params);
+            [[FastRoute sharedInstance].blockDictionary removeObjectForKey:urlString];
+            data = nil;
             return NO;
         }
     }

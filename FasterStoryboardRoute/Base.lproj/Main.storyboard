@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bRV-BA-uvY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bRV-BA-uvY">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -55,19 +55,80 @@
                                     <action selector="popAction:" destination="jzv-7w-MJP" eventType="touchUpInside" id="WWx-qP-3j6"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I6C-mf-d2i">
+                                <rect key="frame" x="123" y="246" width="128" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Xdi-Hr-1QM"/>
+                                    <constraint firstAttribute="width" constant="128" id="yUs-BZ-QSn"/>
+                                </constraints>
+                                <state key="normal" title="Jump"/>
+                                <connections>
+                                    <action selector="popAction:" destination="jzv-7w-MJP" eventType="touchUpInside" id="QKf-9C-3ga"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="1hP-H3-He3" firstAttribute="trailing" secondItem="xmd-Ay-MOc" secondAttribute="trailing" constant="124" id="O0k-1i-KnW"/>
+                            <constraint firstItem="I6C-mf-d2i" firstAttribute="top" secondItem="xmd-Ay-MOc" secondAttribute="bottom" constant="43" id="Xdc-Bx-3du"/>
+                            <constraint firstItem="I6C-mf-d2i" firstAttribute="centerX" secondItem="xmd-Ay-MOc" secondAttribute="centerX" id="YpU-Ez-a8A"/>
                             <constraint firstItem="xmd-Ay-MOc" firstAttribute="leading" secondItem="1hP-H3-He3" secondAttribute="leading" constant="123" id="coH-ah-yjN"/>
                             <constraint firstItem="xmd-Ay-MOc" firstAttribute="top" secondItem="1hP-H3-He3" secondAttribute="top" constant="153" id="sux-ig-TRg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1hP-H3-He3"/>
                     </view>
+                    <connections>
+                        <outlet property="jumpButton" destination="I6C-mf-d2i" id="LKY-hb-JRS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HRA-VO-kOn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1189.5999999999999" y="141.67916041979012"/>
+            <point key="canvasLocation" x="1146" y="160"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="XQ6-fY-PFw">
+            <objects>
+                <viewController storyboardIdentifier="GJDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="H1W-0E-vw1" customClass="GJDetailViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kqi-6B-ZRk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hlX-ff-SDf">
+                                <rect key="frame" x="123.5" y="128" width="128" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="128" id="5f4-WP-pWG"/>
+                                    <constraint firstAttribute="height" constant="30" id="W33-cn-cda"/>
+                                </constraints>
+                                <state key="normal" title="Jump"/>
+                                <connections>
+                                    <action selector="jump:" destination="H1W-0E-vw1" eventType="touchUpInside" id="HvE-BY-mtV"/>
+                                    <action selector="popAction:" destination="jzv-7w-MJP" eventType="touchUpInside" id="zkh-WS-LTj"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="19N-fZ-aHF">
+                                <rect key="frame" x="20" y="234" width="335" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="hlX-ff-SDf" firstAttribute="centerX" secondItem="3gc-GM-4vg" secondAttribute="centerX" id="8gl-bS-dpD"/>
+                            <constraint firstItem="19N-fZ-aHF" firstAttribute="leading" secondItem="3gc-GM-4vg" secondAttribute="leading" constant="20" id="KCM-Y9-bkE"/>
+                            <constraint firstItem="hlX-ff-SDf" firstAttribute="top" secondItem="3gc-GM-4vg" secondAttribute="top" constant="108" id="gBM-Y3-exK"/>
+                            <constraint firstItem="3gc-GM-4vg" firstAttribute="trailing" secondItem="19N-fZ-aHF" secondAttribute="trailing" constant="20" id="hKz-9s-OQf"/>
+                            <constraint firstItem="19N-fZ-aHF" firstAttribute="top" secondItem="hlX-ff-SDf" secondAttribute="bottom" constant="76" id="lBg-Ft-DW5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3gc-GM-4vg"/>
+                    </view>
+                    <connections>
+                        <outlet property="inputText" destination="19N-fZ-aHF" id="Mlb-og-CFQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6kd-2w-7UW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1792.8" y="159.67016491754123"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4LV-Jp-7L9">

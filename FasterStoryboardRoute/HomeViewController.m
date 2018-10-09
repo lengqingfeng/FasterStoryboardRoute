@@ -9,13 +9,20 @@
 #import "HomeViewController.h"
 #import "FastRoute.h"
 @interface HomeViewController ()
+@property (weak, nonatomic) IBOutlet UIButton *jumpButton;
 
 @end
 
 @implementation HomeViewController
 
 - (IBAction)popAction:(id)sender {
-    [FastRoute popToRouteViewControlerWithClassName:@"ViewController"];
+    __weak typeof(self)weakSelf = self;
+    [FastRoute openURLString:@"faster:/me/detail" params:@{} completion:^(id result) {
+        NSDictionary *data = result;
+        NSString *titleString = [data objectForKey:@"title"];
+        [weakSelf.jumpButton setTitle:titleString forState:UIControlStateNormal];
+    }];
+   // [FastRoute popToRouteViewControlerWithClassName:@"ViewController"];
 }
 
 - (void)viewDidLoad {
