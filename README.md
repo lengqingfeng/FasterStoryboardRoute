@@ -1,2 +1,2 @@
 # FasterStoryboardRoute
-'FastRoute', '0.0.2'
+'FastRoute', '0.0.5'
