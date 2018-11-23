@@ -20,6 +20,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [FastRoute sharedInstance].routerPlistName = @"FasterRouteURL";
+    [FastRoute sharedInstance].appId = @"1403656175";
     //[FastRoute sharedInstance].schemeName = @"gj";
     // Override point for customization after application launch.
     return YES;

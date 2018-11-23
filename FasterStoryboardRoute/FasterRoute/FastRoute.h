@@ -27,6 +27,22 @@
 @property (strong, nonatomic) NSString *schemeName;
 
 /**
+    检测版本更新
+ */
+@property (strong, nonatomic) NSString *appId;
+
+/**
+ 错误文案
+ */
+@property (strong, nonatomic) NSString *errorMessage;
+
+/**
+ 错误图片
+ */
+@property (strong, nonatomic) UIImage *errorImage;
+
+
+/**
  通过URL方式跳转 故事版 代码 都支持
 
  @param urlString 跳转url

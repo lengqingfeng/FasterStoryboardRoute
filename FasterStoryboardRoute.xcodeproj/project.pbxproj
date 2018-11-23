@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0DBC2AF121A827CF004FA9F8 /* FastRouteErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DBC2AF021A827CF004FA9F8 /* FastRouteErrorViewController.m */; };
+		0DBC2AF521A8347F004FA9F8 /* errorImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DBC2AF421A8347F004FA9F8 /* errorImage.png */; };
 		0DE1D71C216CB7AA00C0F87A /* GJDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE1D71B216CB7AA00C0F87A /* GJDetailViewController.m */; };
 		4839524F204C203C003A3819 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4839524E204C203C003A3819 /* AppDelegate.m */; };
 		48395252204C203C003A3819 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48395251204C203C003A3819 /* ViewController.m */; };
@@ -42,6 +44,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0DBC2AEF21A827CF004FA9F8 /* FastRouteErrorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FastRouteErrorViewController.h; sourceTree = "<group>"; };
+		0DBC2AF021A827CF004FA9F8 /* FastRouteErrorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FastRouteErrorViewController.m; sourceTree = "<group>"; };
+		0DBC2AF421A8347F004FA9F8 /* errorImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = errorImage.png; sourceTree = "<group>"; };
 		0DE1D71A216CB7AA00C0F87A /* GJDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJDetailViewController.h; sourceTree = "<group>"; };
 		0DE1D71B216CB7AA00C0F87A /* GJDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJDetailViewController.m; sourceTree = "<group>"; };
 		4839524A204C203C003A3819 /* FasterStoryboardRoute.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FasterStoryboardRoute.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,6 +167,7 @@
 		48395284204C2195003A3819 /* FasterRoute */ = {
 			isa = PBXGroup;
 			children = (
+				0DBC2AF421A8347F004FA9F8 /* errorImage.png */,
 				48395282204C218C003A3819 /* FasterRouteURL.plist */,
 				48F28DE7208C6B0C001428F2 /* NSDictionary+RouteCategory.h */,
 				48F28DE8208C6B0C001428F2 /* NSDictionary+RouteCategory.m */,
@@ -169,6 +175,8 @@
 				48395286204C244C003A3819 /* FastRoute.m */,
 				4839528B204C3E64003A3819 /* NSObject+ClassProperty.h */,
 				4839528C204C3E64003A3819 /* NSObject+ClassProperty.m */,
+				0DBC2AEF21A827CF004FA9F8 /* FastRouteErrorViewController.h */,
+				0DBC2AF021A827CF004FA9F8 /* FastRouteErrorViewController.m */,
 			);
 			path = FasterRoute;
 			sourceTree = "<group>";
@@ -280,6 +288,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				48395283204C218C003A3819 /* FasterRouteURL.plist in Resources */,
+				0DBC2AF521A8347F004FA9F8 /* errorImage.png in Resources */,
 				4839525A204C203C003A3819 /* LaunchScreen.storyboard in Resources */,
 				48395257204C203C003A3819 /* Assets.xcassets in Resources */,
 				48395255204C203C003A3819 /* Main.storyboard in Resources */,
@@ -310,6 +319,7 @@
 				48395252204C203C003A3819 /* ViewController.m in Sources */,
 				0DE1D71C216CB7AA00C0F87A /* GJDetailViewController.m in Sources */,
 				4839525D204C203C003A3819 /* main.m in Sources */,
+				0DBC2AF121A827CF004FA9F8 /* FastRouteErrorViewController.m in Sources */,
 				48F28DE9208C6B0C001428F2 /* NSDictionary+RouteCategory.m in Sources */,
 				48395287204C244C003A3819 /* FastRoute.m in Sources */,
 				4839528D204C3E64003A3819 /* NSObject+ClassProperty.m in Sources */,
@@ -483,7 +493,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FTH98Q7WDL;
+				DEVELOPMENT_TEAM = 8J97E5T9HW;
 				INFOPLIST_FILE = FasterStoryboardRoute/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Lengshengren.FasterStoryboardRoute;
@@ -497,7 +507,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FTH98Q7WDL;
+				DEVELOPMENT_TEAM = 8J97E5T9HW;
 				INFOPLIST_FILE = FasterStoryboardRoute/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Lengshengren.FasterStoryboardRoute;

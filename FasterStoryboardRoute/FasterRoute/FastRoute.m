@@ -10,7 +10,7 @@
 #import "NSDictionary+RouteCategory.h"
 #import "NSObject+ClassProperty.h"
 #import <objc/runtime.h>
-
+#import "FastRouteErrorViewController.h"
 static NSString *const kClassName = @"className";
 static NSString *const kStroyboardName = @"stroyboardName";
 static NSString *const kScheme = @"faster";
@@ -59,7 +59,16 @@ typedef id (^CallBackBlack)(id result);
     }
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
     if (storyboard) {
-        return [storyboard instantiateViewControllerWithIdentifier:identifier];
+        @try {
+           return [storyboard instantiateViewControllerWithIdentifier:identifier];
+        }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            NSLog(@"FastRoute Error Storyboard identifier error");
+        }
+     
     }
     return nil;
 }
@@ -269,6 +278,10 @@ typedef id (^CallBackBlack)(id result);
             NSString *className = [data stringValueForKey:kClassName];
             UIViewController *controller = nil;
             if (className == nil) {
+                FastRouteErrorViewController *errorVC = [[FastRouteErrorViewController alloc] init];
+                errorVC.appIDString = [FastRoute sharedInstance].appId;
+                errorVC.errorMessage = [FastRoute sharedInstance].errorMessage;
+              [self pushControllerWithObj:errorVC params:params];
                 NSLog(@"出问题了!!!");
                 return NO;
             }
@@ -281,6 +294,10 @@ typedef id (^CallBackBlack)(id result);
             }
 
             if (controller == nil) {
+                FastRouteErrorViewController *errorVC = [[FastRouteErrorViewController alloc] init];
+                errorVC.appIDString = [FastRoute sharedInstance].appId;
+                errorVC.errorMessage = [FastRoute sharedInstance].errorMessage;
+                [self pushControllerWithObj:errorVC params:params];
                 NSLog(@"stroyboard 控制器不存在，出问题了!!!");
                 return NO;
             }

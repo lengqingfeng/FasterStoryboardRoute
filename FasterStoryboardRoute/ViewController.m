@@ -29,7 +29,7 @@
 
     //[FastRoute openURLString:@"faster://home/detail?name=LiLei"];
     
-    [FastRoute openURLString:@"faster://home/detail?age=11" params:@{@"name":@"LiLei"}];
+    [FastRoute openURLString:@"faster://home/detailuser?age=11" params:@{@"name":@"LiLei"}];
 
     //[FasterRoute openURLString:@"faster:/me/setinfo?name=LiLei"];
 
