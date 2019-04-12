@@ -26,16 +26,16 @@
     //
     //[FastRoute openContorllerWithIdentifier:@"HomeViewController"
     //                                       params:@{@"name":@"LiLei"}];
-
+    
     //[FastRoute openURLString:@"faster://home/detail?name=LiLei"];
     
-    [FastRoute openURLString:@"faster://home/detailuser?age=11" params:@{@"name":@"LiLei"}];
+    //[FastRoute openURLString:@"faster://home/detail?age=11" params:@{@"name":@"LiLei"}];
 
     //[FasterRoute openURLString:@"faster:/me/setinfo?name=LiLei"];
 
-    //[FasterRoute openURLString:@"faster://home/detail?name=LiLei" completion:^(id result) {
-    //        NSLog(@"result == %@",result);
-    //    }];
+    [FastRoute openURLString:@"faster://home/detail" params:nil completion:^(id result) {
+        
+    }];
 }
 
 

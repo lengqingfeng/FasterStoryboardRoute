@@ -158,7 +158,7 @@ typedef id (^CallBackBlack)(id result);
             data(params);
             [[FastRoute sharedInstance].blockDictionary removeObjectForKey:urlString];
             data = nil;
-            return NO;
+            return YES;
         }
     }
     return NO;
@@ -267,11 +267,8 @@ typedef id (^CallBackBlack)(id result);
         }
         if (root.length > schemeLength && [[root substringToIndex:schemeLength] isEqualToString:schemeNameString]) {
             if (completion) {
-                if (![[[FastRoute sharedInstance].blockDictionary allKeys] containsObject:root]) {
-                    [[FastRoute sharedInstance].blockDictionary setObject:completion forKey:root];
-                }
+                [[FastRoute sharedInstance].blockDictionary setObject:completion forKey:root];
             }
-
             NSDictionary *urlDictionary = [[FastRoute sharedInstance] getPlistDataWithKey:kPlistURL];
             NSDictionary *data = [urlDictionary dictionaryValueForKey:root];
             BOOL isStoryboard = [[data stringValueForKey:kisStoryboard] boolValue];

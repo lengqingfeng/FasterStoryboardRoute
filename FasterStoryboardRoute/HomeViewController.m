@@ -16,19 +16,20 @@
 @implementation HomeViewController
 
 - (IBAction)popAction:(id)sender {
-    __weak typeof(self)weakSelf = self;
-    [FastRoute openURLString:@"faster:/me/detail" params:@{} completion:^(id result) {
-        NSDictionary *data = result;
-        NSString *titleString = [data objectForKey:@"title"];
-        [weakSelf.jumpButton setTitle:titleString forState:UIControlStateNormal];
-    }];
+//    __weak typeof(self)weakSelf = self;
+//    [FastRoute openURLString:@"faster:/me/detail" params:@{} completion:^(id result) {
+//        NSDictionary *data = result;
+//        NSString *titleString = [data objectForKey:@"title"];
+//        [weakSelf.jumpButton setTitle:titleString forState:UIControlStateNormal];
+//    }];
+    [FastRoute callBackWithURLString:@"faster://home/detail" params:nil];
    // [FastRoute popToRouteViewControlerWithClassName:@"ViewController"];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor greenColor];
-    [FastRoute callBackWithURLString:@"faster://home/detail" params:@{@"name":@"helloworld"}];
+//    [FastRoute callBackWithURLString:@"faster://home/detail" params:@{@"name":@"helloworld"}];
     NSLog(@"name========%@",self.name);
     NSLog(@"age========%@",self.age);
     // Do any additional setup after loading the view.
