@@ -267,7 +267,7 @@ typedef id (^CallBackBlack)(id result);
         }
         if (root.length > schemeLength && [[root substringToIndex:schemeLength] isEqualToString:schemeNameString]) {
             if (completion) {
-                [[FastRoute sharedInstance].blockDictionary setObject:completion forKey:root];
+                [[FastRoute sharedInstance].blockDictionary setObject:[completion copy] forKey:root];
             }
             NSDictionary *urlDictionary = [[FastRoute sharedInstance] getPlistDataWithKey:kPlistURL];
             NSDictionary *data = [urlDictionary dictionaryValueForKey:root];
