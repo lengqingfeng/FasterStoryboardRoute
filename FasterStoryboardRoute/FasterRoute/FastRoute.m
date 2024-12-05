@@ -271,7 +271,7 @@ typedef id (^CallBackBlack)(id result);
             }
             NSDictionary *urlDictionary = [[FastRoute sharedInstance] getPlistDataWithKey:kPlistURL];
             NSDictionary *data = [urlDictionary dictionaryValueForKey:root];
-            BOOL isStoryboard = [[data stringValueForKey:kisStoryboard] boolValue];
+            BOOL isStoryboard = [data boolValueForKey:kisStoryboard defaultValue:NO];
             NSString *className = [data stringValueForKey:kClassName];
             UIViewController *controller = nil;
             if (className == nil) {

@@ -50,4 +50,7 @@
  * @return NSInteger value for the given key or nil
  */
 - (NSInteger)integerValueForKey:(NSString *)key;
+
+
+- (BOOL)boolValueForKey:(NSString *)key defaultValue:(BOOL)defaultValue;
 @end

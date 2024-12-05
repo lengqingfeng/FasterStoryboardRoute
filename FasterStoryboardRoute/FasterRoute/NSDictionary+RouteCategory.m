@@ -72,4 +72,27 @@
     return 0;
 }
 
+- (BOOL)boolValueForKey:(NSString *)key defaultValue:(BOOL)defaultValue {
+    // 检查键是否有效
+    if (!key) {
+        return defaultValue;
+    }
+
+    // 尝试获取与键关联的对象
+    id value = [self objectForKey:key];
+
+    // 检查对象是否为 nil 或者 NSNull
+    if (!value || [value isKindOfClass:[NSNull class]]) {
+        return defaultValue;
+    }
+
+    // 确认对象是 NSNumber 类型并且尝试转换为布尔值
+    if ([value isKindOfClass:[NSNumber class]]) {
+        return [value boolValue];
+    }
+
+    // 如果对象不是 NSNumber 类型，则返回默认值
+    return defaultValue;
+}
+
 @end
