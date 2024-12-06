@@ -23,7 +23,7 @@
 //        [weakSelf.jumpButton setTitle:titleString forState:UIControlStateNormal];
 //    }];
     [FastRoute callBackWithURLString:@"faster://home/detail" params:nil];
-   // [FastRoute popToRouteViewControlerWithClassName:@"ViewController"];
+    [FastRoute popToRouteViewControlerWithClassName:@"ViewController"];
 }
 
 - (void)viewDidLoad {

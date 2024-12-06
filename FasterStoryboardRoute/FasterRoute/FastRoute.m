@@ -60,15 +60,12 @@ typedef id (^CallBackBlack)(id result);
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
     if (storyboard) {
         @try {
-           return [storyboard instantiateViewControllerWithIdentifier:identifier];
+            return [storyboard instantiateViewControllerWithIdentifier:identifier];
         }
         @catch (NSException *exception) {
-            
+            NSLog(@"FastRoute Error Storyboard identifier error: %@", exception.reason);
+            return nil;
         }
-        @finally {
-            NSLog(@"FastRoute Error Storyboard identifier error");
-        }
-     
     }
     return nil;
 }
@@ -115,7 +112,7 @@ typedef id (^CallBackBlack)(id result);
                               params:(NSDictionary *)params {
     UIViewController *controller = [[FastRoute sharedInstance] getControllerWithIdentifier:identifier];
     if (controller == nil) {
-        NSLog(@"stroyboard 控制器不存在，出问题了!!!");
+        NSLog(@"FastRoute is Error controller is nill with identifier %@",identifier);
         return;
     }
 
@@ -279,7 +276,7 @@ typedef id (^CallBackBlack)(id result);
                 errorVC.appIDString = [FastRoute sharedInstance].appId;
                 errorVC.errorMessage = [FastRoute sharedInstance].errorMessage;
               [self pushControllerWithObj:errorVC params:params];
-                NSLog(@"出问题了!!!");
+                NSLog(@"FastRoute is Error className is nil data info %@",data);
                 return NO;
             }
 
@@ -295,7 +292,7 @@ typedef id (^CallBackBlack)(id result);
                 errorVC.appIDString = [FastRoute sharedInstance].appId;
                 errorVC.errorMessage = [FastRoute sharedInstance].errorMessage;
                 [self pushControllerWithObj:errorVC params:params];
-                NSLog(@"stroyboard 控制器不存在，出问题了!!!");
+                NSLog(@"FastRoute is Error stroyboard is nil %@", className);
                 return NO;
             }
 
